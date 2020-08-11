@@ -33,7 +33,7 @@ camera_pose = np.block([[camera_dir, camera_pos], [np.zeros((1, 3)), np.ones((1,
 meat_r = .5
 major_r = 2
 circle_steps = 25
-sweep_steps = 100
+sweep_steps = 75
 
 # cols xyz points
 # rows for each point
@@ -112,11 +112,11 @@ def drawframe(transformed_torus):
 
 # transform and draw torus
 while(True):
-    spin_steps = 80
+    spin_steps = 100
     for step in range(spin_steps):
         torus = []
         th = step * 2 * np.pi / spin_steps
         for p in base_torus:
-            torus.append(rotate_point(rotate_point(p, th, 'y'), th, 'x'))
+            torus.append(rotate_point(rotate_point(rotate_point(p, 3 * th, 'y'), 2 * th, 'x'), th, 'z'))
         drawframe(torus)
 
