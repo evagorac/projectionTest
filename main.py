@@ -110,6 +110,10 @@ def drawframe(transformed_torus):
         print(line)
 
 
+# fill console with blanks to avoid screen glitching when starting up
+for x in range(10000):
+    print("Please wait while I spam the console")
+
 # transform and draw torus
 while(True):
     spin_steps = 100
