@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def rotate_point(p, th, axis):
     s = np.sin(th)
     c = np.cos(th)
@@ -18,13 +19,13 @@ def scale(v, A, B, Ap, Bp):
     return (v-A)/(B-A) * (Bp-Ap) + Ap
 
 
-intensity_map = " .:-=+*#%@"
+intensity_map = "    .:-=+*#%@"
 
-h_camera_fov = 120  # degrees
-v_camera_fov = 120  # degrees
+h_camera_fov = 100 * np.pi/180  # degrees
+v_camera_fov = 60 * np.pi/180  # degrees
 focal_dist = 1
-screen_dim = (100, 50)
-camera_dist = 10
+screen_dim = (200, 50)
+camera_dist = 6
 
 camera_pos = np.array([[camera_dist], [0], [0]])
 camera_dir = np.array([[0, 0, -1], [0, 1, 0], [1, 0, 0]])
@@ -76,7 +77,7 @@ def drawframe(transformed_torus):
         p_y = y * scaling_factor
         p_z = z * scaling_factor
 
-        h_pixels_per_unit = screen_dim[0] / (2 * focal_dist * np.tan(h_camera_fov/2))
+        h_pixels_per_unit = screen_dim[0] / (2 * focal_dist * np.tan(h_camera_fov / 2))
         v_pixels_per_unit = screen_dim[1] / (2 * focal_dist * np.tan(v_camera_fov / 2))
 
         row = -int(p_z * v_pixels_per_unit - screen_dim[1]/2)
@@ -116,11 +117,11 @@ for x in range(10000):
 
 # transform and draw torus
 while(True):
-    spin_steps = 100
+    spin_steps = 250
     for step in range(spin_steps):
         torus = []
         th = step * 2 * np.pi / spin_steps
         for p in base_torus:
-            torus.append(rotate_point(rotate_point(rotate_point(p, 3 * th, 'y'), 2 * th, 'x'), th, 'z'))
+            torus.append(rotate_point(rotate_point(rotate_point(p, 8 * th, 'y'), 3 * th, 'x'), th, 'z'))
         drawframe(torus)
 
